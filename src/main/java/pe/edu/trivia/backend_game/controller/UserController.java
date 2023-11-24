@@ -1,6 +1,7 @@
 package pe.edu.trivia.backend_game.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.trivia.backend_game.collection.User;
 import pe.edu.trivia.backend_game.service.UserService;
@@ -18,4 +19,14 @@ public class UserController {
     public List<User> fetchAllUsers(){
         return userService.getAllUsers();
     }
+    @PostMapping("/search")
+    public List<User> searchUsers(@RequestParam String keyword) {
+        return userService.searchUsers(keyword);
+    }
+
+    @PostMapping("/save")
+    public String saveUser(@RequestBody User user) {
+        return userService.save(user);
+    }
+
 }

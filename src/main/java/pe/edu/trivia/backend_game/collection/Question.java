@@ -3,7 +3,9 @@ package pe.edu.trivia.backend_game.collection;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
@@ -13,13 +15,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Question {
-    @Id
-    private String id;
-    private String text;
+    @Id private String id;
+    @Indexed(unique = true) @NonNull private String text;
     private List<String> topics;
     private Type type;
     private List<String> options;
-    private String correctAnswer;
+    @NonNull private String correctAnswer;
 
     public Question(String text, List<String> topics, Type type, List<String> options, String correctAnswer) {
         this.text = text;

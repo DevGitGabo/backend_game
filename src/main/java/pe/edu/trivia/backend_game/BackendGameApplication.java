@@ -5,12 +5,19 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import pe.edu.trivia.backend_game.collection.*;
+import pe.edu.trivia.backend_game.logic.LevelValidator;
+import pe.edu.trivia.backend_game.logic.MultiplayerValidator;
+import pe.edu.trivia.backend_game.logic.QuestionValidator;
+import pe.edu.trivia.backend_game.logic.UserValidator;
 import pe.edu.trivia.backend_game.repository.LevelRepository;
 import pe.edu.trivia.backend_game.repository.MultiplayerRepository;
 import pe.edu.trivia.backend_game.repository.QuestionRepository;
 import pe.edu.trivia.backend_game.repository.UserRepository;
+import pe.edu.trivia.backend_game.service.LevelService;
+import pe.edu.trivia.backend_game.service.MultiplayerService;
+import pe.edu.trivia.backend_game.service.QuestionService;
+import pe.edu.trivia.backend_game.service.UserService;
 
-import java.util.Date;
 import java.util.List;
 
 import static pe.edu.trivia.backend_game.collection.Range.BRONZE;
@@ -30,6 +37,19 @@ public class BackendGameApplication {
 							  MultiplayerRepository multiplayerRepository,
 							  LevelRepository levelRepository){
 		return args -> {
+			final UserValidator userValidator = new UserValidator(userRepository);
+			final UserService userService = new UserService(userRepository,userValidator);
+
+
+			final QuestionValidator questionValidator = new QuestionValidator(questionRepository);
+			final QuestionService questionService = new QuestionService(questionRepository, questionValidator);
+
+			final MultiplayerValidator multiplayerValidator = new MultiplayerValidator(multiplayerRepository);
+			final MultiplayerService multiplayerService = new MultiplayerService(multiplayerRepository, multiplayerValidator);
+
+			final LevelValidator levelValidator = new LevelValidator(levelRepository);
+			final LevelService levelService = new LevelService(levelRepository, levelValidator);
+
 			User user = new User(
 					"Gabriel",
 					"Gabriel@gmail.com",
@@ -57,24 +77,21 @@ public class BackendGameApplication {
 					"Level 1",
 					1,
 					List.of(question),
-					"This level 1."
+					"This level 1.",
+					true
 			);
-
-			Date date = new Date();
 
 			Multiplayer multiplayer = new Multiplayer(
 					List.of(user),
 					List.of(question),
 					List.of(2,3),
-					user,
-					date
+					user
 			);
 
-			userRepository.insert(user);
-			questionRepository.insert(question);
-			levelRepository.insert(level);
-			multiplayerRepository.insert(multiplayer);
+			userService.save(user);
+			questionService.save(question);
+			levelService.save(level);
+			multiplayerService.save(multiplayer);
 		};
 	}
-
 }
