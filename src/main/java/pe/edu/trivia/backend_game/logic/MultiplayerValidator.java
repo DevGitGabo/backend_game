@@ -23,7 +23,6 @@ public class MultiplayerValidator {
         validateUsers(multiplayer.getUsers());
         validateQuestions(multiplayer.getQuestions());
         validateWinner(multiplayer.getWinner());
-        validateDate(multiplayer.getDate());
     }
 
     private void validateUsers(List<User> users) throws NotMultiplayerValidException {
@@ -47,13 +46,6 @@ public class MultiplayerValidator {
             throw new NotMultiplayerValidException("El ganador no puede ser nulo");
         }
     }
-
-    private void validateDate(Date date) throws NotMultiplayerValidException {
-        if (date == null) {
-            throw new NotMultiplayerValidException("La fecha no puede ser nula");
-        }
-    }
-
     public static class NotMultiplayerValidException extends Exception {
         public NotMultiplayerValidException(String message) {
             super(message);

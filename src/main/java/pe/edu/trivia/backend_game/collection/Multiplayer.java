@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
-
 import java.util.Date;
 import java.util.List;
 
@@ -19,12 +17,15 @@ public class Multiplayer {
     @NonNull private List<Question> questions;
     private List<Integer> point;
     @NonNull private User winner;
-    @NonNull @CreatedDate private Date date;
+    private Date date;
 
     public Multiplayer(List<User> users, List<Question> questions, List<Integer> point, User winner) {
         this.users = users;
         this.questions = questions;
         this.point = point;
         this.winner = winner;
+
+        Date date = new Date();
+        this.date = date;
     }
 }
