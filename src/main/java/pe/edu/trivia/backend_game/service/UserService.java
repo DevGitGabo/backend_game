@@ -59,10 +59,10 @@ public class UserService {
             existingUser.setLevelUser(updatedUser.getLevelUser());
             existingUser.setXp(updatedUser.getXp());
             existingUser.setAchievements(updatedUser.getAchievements());
-            existingUser.setLevelHistory(updatedUser.getLevelHistory());
+            existingUser.setLevelHistoryMode(updatedUser.getLevelHistoryMode());
             existingUser.setRange(updatedUser.getRange());
-            existingUser.setWin_multiplayer(updatedUser.getWin_multiplayer());
-            existingUser.setLose_multiplayer(updatedUser.getLose_multiplayer());
+            existingUser.setWin_multiplayerMode(updatedUser.getWin_multiplayerMode());
+            existingUser.setLose_multiplayerMode(updatedUser.getLose_multiplayerMode());
             existingUser.setRole(updatedUser.getRole());
 
             // Guarda el usuario actualizado en el repositorio

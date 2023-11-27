@@ -23,13 +23,15 @@ public class User {
     private int levelUser;
     private int xp;
     private List<String> achievements;
-    private int levelHistory;
+    private int levelHistoryMode;
     private Range range;
-    private int win_multiplayer;
-    private int lose_multiplayer;
+    private int win_multiplayerMode;
+    private int lose_multiplayerMode;
     private Role role;
 
-    public User(String name, String email, String password, int money, int levelUser, int xp, List<String> achievements, int levelHistory, Range range, int win_multiplayer, int lose_multiplayer, Role role) {
+    public User(@NonNull String name, @NonNull String email, @NonNull String password, int money, int levelUser, int xp,
+                List<String> achievements, int levelHistoryMode, Range range, int win_multiplayerMode,
+                int lose_multiplayerMode, Role role) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -37,10 +39,10 @@ public class User {
         this.levelUser = levelUser;
         this.xp = xp;
         this.achievements = achievements;
-        this.levelHistory = levelHistory;
+        this.levelHistoryMode = levelHistoryMode;
         this.range = range;
-        this.win_multiplayer = win_multiplayer;
-        this.lose_multiplayer = lose_multiplayer;
+        this.win_multiplayerMode = win_multiplayerMode;
+        this.lose_multiplayerMode = lose_multiplayerMode;
         this.role = role;
     }
 
