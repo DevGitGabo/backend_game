@@ -43,4 +43,11 @@ public class User {
         this.lose_multiplayer = lose_multiplayer;
         this.role = role;
     }
+
+    public User(@NonNull String name, @NonNull String email, @NonNull String password, Role role) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
 }
