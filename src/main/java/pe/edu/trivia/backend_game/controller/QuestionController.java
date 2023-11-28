@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/question")
+@CrossOrigin("*")
 @AllArgsConstructor
 public class QuestionController {
 

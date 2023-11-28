@@ -13,7 +13,7 @@ public class CorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-            .allowedOrigins("http://localhost:5173") // Especifica el origen permitido
+                .allowedOrigins("*")  // Permitir cualquier origen durante el desarrollo
             .allowedMethods("GET", "POST", "PUT", "DELETE")
             .allowedHeaders("Origin", "Content-Type", "Accept")
             .maxAge(3600); // Duración máxima de la caché de pre-vuelo en segundos

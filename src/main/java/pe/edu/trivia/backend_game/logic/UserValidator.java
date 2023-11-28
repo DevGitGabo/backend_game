@@ -15,13 +15,13 @@ public class UserValidator {
     }
 
     public void validateUser(User user) throws NotUserValidException {
-        validateName(user.getName());
+        validateName(user.getUsername());
         validateEmail(user.getEmail());
     }
 
-    private void validateName(String name) throws NotUserValidException {
-        if (userRepository.existsByName(name)) {
-            throw new NotUserValidException("Ya existe un usuario con el nombre: " + name);
+    private void validateName(String username) throws NotUserValidException {
+        if (userRepository.existsByUsername(username)) {
+            throw new NotUserValidException("Ya existe un usuario con el nombre: " + username);
         }
     }
 

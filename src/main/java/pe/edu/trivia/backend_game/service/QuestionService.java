@@ -5,9 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pe.edu.trivia.backend_game.collection.Question;
-import pe.edu.trivia.backend_game.collection.User;
 import pe.edu.trivia.backend_game.logic.QuestionValidator;
-import pe.edu.trivia.backend_game.logic.UserValidator;
 import pe.edu.trivia.backend_game.repository.QuestionRepository;
 
 import java.util.List;

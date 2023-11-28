@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/level")
+@CrossOrigin("*")
 @AllArgsConstructor
 public class LevelController {
 

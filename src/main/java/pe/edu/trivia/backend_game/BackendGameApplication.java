@@ -4,6 +4,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import pe.edu.trivia.backend_game.collection.*;
 import pe.edu.trivia.backend_game.logic.LevelValidator;
 import pe.edu.trivia.backend_game.logic.MultiplayerValidator;
@@ -35,10 +36,10 @@ public class BackendGameApplication {
 	CommandLineRunner runner (UserRepository userRepository,
 							  QuestionRepository questionRepository,
 							  MultiplayerRepository multiplayerRepository,
-							  LevelRepository levelRepository){
+							  LevelRepository levelRepository, PasswordEncoder passwordEncoder){
 		return args -> {
 			final UserValidator userValidator = new UserValidator(userRepository);
-			final UserService userService = new UserService(userRepository,userValidator);
+			final UserService userService = new UserService(userRepository,userValidator, passwordEncoder);
 
 
 			final QuestionValidator questionValidator = new QuestionValidator(questionRepository);

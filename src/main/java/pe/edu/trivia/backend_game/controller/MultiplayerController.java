@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/match")
+@CrossOrigin("*")
 @AllArgsConstructor
 public class MultiplayerController {
 

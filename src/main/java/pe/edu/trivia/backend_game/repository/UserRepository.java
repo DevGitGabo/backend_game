@@ -5,11 +5,12 @@ import org.springframework.data.mongodb.repository.Query;
 import pe.edu.trivia.backend_game.collection.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserRepository extends MongoRepository<User,String> {
     @Query(
             "{'$or':[ " +
-                    "{'name': {$regex : ?0, $options: 'i'}}, " +
+                    "{'username': {$regex : ?0, $options: 'i'}}, " +
                     "{'email': {$regex : ?0, $options: 'i'}}, " +
                     "{'achievements': {$in: [?0]}}, " +
                     "{'range': {$in: [?0]}}, " +
@@ -18,7 +19,7 @@ public interface UserRepository extends MongoRepository<User,String> {
     )
     List<User> search(String keyword);
 
-    boolean existsByName(String name);
+    boolean existsByUsername(String username);
     boolean existsByEmail(String email);
-
+    Optional<User> findByUsername(String username);
 }
