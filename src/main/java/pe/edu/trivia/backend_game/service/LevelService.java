@@ -37,5 +37,24 @@ public class LevelService {
 
         return mensaje[0];
     }
+
+    public String updateLevel(Level updatedLevel) {
+        Optional<Level> optionalLevel = levelRepository.findById(updatedLevel.getId());
+
+        if (optionalLevel.isPresent()) {
+            Level level = optionalLevel.get();
+            // Actualizar todas las propiedades relevantes del nivel con los valores del nivel actualizado
+            level.setName(updatedLevel.getName());
+            level.setLevel(updatedLevel.getLevel());
+            level.setQuestions(updatedLevel.getQuestions());
+            level.setDescription(updatedLevel.getDescription());
+            level.setCompleted(updatedLevel.isCompleted());
+
+            levelRepository.save(level);
+            return "Nivel actualizado exitosamente.";
+        } else {
+            return "No se encontró el nivel con ID: " + updatedLevel.getId();
+        }
+    }
 }
 

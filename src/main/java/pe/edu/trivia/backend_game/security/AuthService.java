@@ -1,6 +1,7 @@
 package pe.edu.trivia.backend_game.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -12,6 +13,7 @@ import pe.edu.trivia.backend_game.collection.Role;
 import pe.edu.trivia.backend_game.collection.User;
 import pe.edu.trivia.backend_game.logic.UserValidator;
 import pe.edu.trivia.backend_game.repository.UserRepository;
+import pe.edu.trivia.backend_game.security.models.UserWithTokenResponse;
 
 @Service
 @Transactional
@@ -51,12 +53,19 @@ public class AuthService {
         }
     }
 
-
-    public String authenticateUser(String username, String password) {
-        // Lógica de autenticación
+    public UserWithTokenResponse authenticateUser(String username, String password) {
+        // Authenticate the user using Spring Security
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(username, password)
         );
-        return tokenService.generateJwt(authentication);
+
+        // Get the authenticated user object
+        User user = (User) authentication.getPrincipal();
+
+        // Generate the JWT token
+        String token = tokenService.generateJwt(authentication);
+
+        // Return a response containing both the user and the token
+        return new UserWithTokenResponse(user, token);
     }
 }

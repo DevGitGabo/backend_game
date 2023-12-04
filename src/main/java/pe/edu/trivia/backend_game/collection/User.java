@@ -18,12 +18,12 @@ import java.util.Set;
 
 @Data
 @Document
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class User implements UserDetails {
     @Id private String id;
-    @Indexed(unique = true) @NonNull private String username;
-    @Indexed(unique = true) @NonNull private String email;
+    @NonNull private String username;
+    @NonNull private String email;
     @NonNull private String password;
     private int money;
     private int levelUser;
@@ -35,7 +35,34 @@ public class User implements UserDetails {
     private int lose_multiplayerMode;
     private Role role;
     private Set<RolAuth> rolAuth;
+    public User(String id, @NonNull String username, @NonNull String email, @NonNull String password, int money, int levelUser, int xp,
+                List<String> achievements, int levelHistoryMode, Range range, int win_multiplayerMode,
+                int lose_multiplayerMode, Role role) {
+        super();
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.money = money;
+        this.levelUser = levelUser;
+        this.xp = xp;
+        this.achievements = achievements;
+        this.levelHistoryMode = levelHistoryMode;
+        this.range = range;
+        this.win_multiplayerMode = win_multiplayerMode;
+        this.lose_multiplayerMode = lose_multiplayerMode;
+        this.role = role;
 
+        Set<RolAuth> roles = new HashSet<>();
+
+        if (role.equals(Role.ADMIN)){
+            roles.add(new RolAuth("ADMIN"));
+        }else {
+            roles.add(new RolAuth("USER"));
+        }
+
+        this.rolAuth = roles;
+    }
     public User(@NonNull String username, @NonNull String email, @NonNull String password, int money, int levelUser, int xp,
                 List<String> achievements, int levelHistoryMode, Range range, int win_multiplayerMode,
                 int lose_multiplayerMode, Role role) {

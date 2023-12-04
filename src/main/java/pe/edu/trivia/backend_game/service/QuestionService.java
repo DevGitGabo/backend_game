@@ -20,7 +20,7 @@ public class QuestionService {
         return questionRepository.findAll();
     }
     public List<Question> searchQuestions(String keyword) {
-        return questionRepository.findByText(keyword);
+        return questionRepository.findByType(keyword);
     }
     public ResponseEntity<Question> save(Question question) {
         try {

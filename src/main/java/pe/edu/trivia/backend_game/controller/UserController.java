@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.trivia.backend_game.collection.Question;
+import pe.edu.trivia.backend_game.collection.Range;
+import pe.edu.trivia.backend_game.collection.Role;
 import pe.edu.trivia.backend_game.collection.User;
 import pe.edu.trivia.backend_game.service.UserService;
 
@@ -11,7 +13,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
-@CrossOrigin("*")
 @AllArgsConstructor
 public class UserController {
 
@@ -30,7 +31,6 @@ public class UserController {
     public ResponseEntity<User> updateUser(@PathVariable String id, @RequestBody User updatedUser) {
         return userService.updateUser(id, updatedUser);
     }
-
     @PostMapping("/save")
     public ResponseEntity<User> saveUser(@RequestBody User user) {
         return userService.save(user);

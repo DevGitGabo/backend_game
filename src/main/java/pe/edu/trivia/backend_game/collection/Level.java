@@ -16,8 +16,8 @@ import java.util.List;
 @NoArgsConstructor
 public class Level {
     @Id private String id;
-    @Indexed(unique = true) @NonNull private String name;
-    @Indexed(unique = true) private int level;
+    @NonNull private String name;
+    private int level;
     private List<Question> questions;
     private String description;
     @NonNull private boolean completed;

@@ -8,4 +8,5 @@ import java.util.List;
 public interface QuestionRepository extends MongoRepository<Question,String>{
     boolean existsByText(String text);
     List<Question> findByText(String text);
+    List<Question> findByType(String text);
 }

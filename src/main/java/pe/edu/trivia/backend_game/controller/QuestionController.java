@@ -12,7 +12,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/question")
-@CrossOrigin("*")
 @AllArgsConstructor
 public class QuestionController {
 
@@ -24,7 +23,7 @@ public class QuestionController {
         return questionService.getAllQuestions();
     }
 
-    @PostMapping("/search")
+    @GetMapping("/search")
     public List<Question> searchQuestions(@RequestParam String keyword) {
         return questionService.searchQuestions(keyword);
     }

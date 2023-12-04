@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.*;
 import pe.edu.trivia.backend_game.collection.User;
 import pe.edu.trivia.backend_game.security.models.LoginRequest;
 import pe.edu.trivia.backend_game.security.models.RegisterRequest;
+import pe.edu.trivia.backend_game.security.models.UserWithTokenResponse;
 import pe.edu.trivia.backend_game.service.UserService;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin("*")
 public class AuthController {
     @Autowired
     private PasswordEncoder encoder;
@@ -33,15 +33,9 @@ public class AuthController {
         }
     }
 
-
     @PostMapping("/login")
-    public ResponseEntity<String> authenticateUser(@RequestBody LoginRequest loginRequest) {
-        String token = authService.authenticateUser(loginRequest.getName(), loginRequest.getPassword());
-        return ResponseEntity.ok(token);
-    }
-
-    @GetMapping("/getAll")
-    public List<User> fetchAllUsers(){
-        return userService.getAllUsers();
+    public UserWithTokenResponse authenticateUser(@RequestBody LoginRequest loginRequest) {
+        UserWithTokenResponse userWithTokenResponse = authService.authenticateUser(loginRequest.getUsername(), loginRequest.getPassword());
+        return userWithTokenResponse;
     }
 }

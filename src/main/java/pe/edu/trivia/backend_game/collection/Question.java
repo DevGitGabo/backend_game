@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Question {
     @Id private String id;
-    @Indexed(unique = true) @NonNull private String text;
+    @NonNull private String text;
     private List<String> topics;
     private Type type;
     private List<String> options;

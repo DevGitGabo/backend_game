@@ -1,6 +1,7 @@
 package pe.edu.trivia.backend_game.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.trivia.backend_game.collection.Level;
 import pe.edu.trivia.backend_game.collection.Question;
@@ -10,7 +11,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/level")
-@CrossOrigin("*")
 @AllArgsConstructor
 public class LevelController {
 
@@ -26,5 +26,11 @@ public class LevelController {
     @PostMapping("/save")
     public String saveLevel(@RequestBody Level level) {
         return levelService.save(level);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<String> updateLevel(@RequestBody Level updatedLevel) {
+        String response = levelService.updateLevel(updatedLevel);
+        return ResponseEntity.ok(response);
     }
 }

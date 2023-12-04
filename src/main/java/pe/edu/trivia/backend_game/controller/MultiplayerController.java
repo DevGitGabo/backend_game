@@ -1,6 +1,7 @@
 package pe.edu.trivia.backend_game.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.trivia.backend_game.collection.Level;
 import pe.edu.trivia.backend_game.collection.Multiplayer;
@@ -12,7 +13,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/match")
-@CrossOrigin("*")
 @AllArgsConstructor
 public class MultiplayerController {
 

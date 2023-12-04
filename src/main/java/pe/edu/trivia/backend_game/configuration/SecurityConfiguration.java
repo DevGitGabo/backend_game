@@ -6,8 +6,11 @@ import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -24,7 +27,11 @@ import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import pe.edu.trivia.backend_game.utils.RSAKeyPropeties;
 
 @Configuration
@@ -52,10 +59,8 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-
-
         http
-                .csrf(AbstractHttpConfigurer::disable) // Desabilitar la falsificación de solucitudes.
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers(AntPathRequestMatcher.antMatcher("/auth/**")).permitAll();
                     auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/match/**")).hasRole("ADMIN");
@@ -64,6 +69,20 @@ public class SecurityConfiguration {
                     auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/level/**")).hasAnyRole("ADMIN", "USER");
                     auth.anyRequest().authenticated();
                 });
+
+        http.addFilterBefore(new CorsFilter(new CorsConfigurationSource() {
+            @Override
+            public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
+                CorsConfiguration config = new CorsConfiguration();
+                config.addAllowedOrigin("http://localhost:5173"); // Permitir solicitudes desde cualquier origen
+                config.addAllowedMethod("*"); // Permitir cualquier método (GET, POST, etc.)
+                config.addAllowedHeader("*"); // Permitir cualquier encabezado
+
+                config.validateAllowCredentials();
+
+                return config;
+            }
+        }), ChannelProcessingFilter.class);
 
         http.oauth2ResourceServer(oauth2 -> oauth2
                 .jwt(jwt -> jwt

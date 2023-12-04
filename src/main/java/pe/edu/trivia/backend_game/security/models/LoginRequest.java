@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 public class LoginRequest {
-    private String name;
+    private String username;
     private String password;
 
     // Constructores, getters y setters
@@ -12,19 +12,19 @@ public class LoginRequest {
     public LoginRequest() {
     }
 
-    public LoginRequest(String name, String password) {
-        this.name = name;
+    public LoginRequest(String username, String password) {
+        this.username = username;
         this.password = password;
     }
 
     // Getters y setters
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
